@@ -245,7 +245,7 @@ if __name__ == "__main__":
         print('NOT ENOUGH ARGUMENTS!\n' + \
               'Usage:\n' + \
               '\tpython ./meta_to_json.py <PATH TO INPUT DATASET FILE> ' + \
-              '<PATH TO OUTPUT DATASET FILE>\n' + \
+              '<PATH TO OUTPUT JSON FILE>\n' + \
               'Example:\n' + \
               '\tpython ./meta_to_json.py ./dataset/amazon-meta.txt ' + \
               './dataset/amazon-meta.json')
