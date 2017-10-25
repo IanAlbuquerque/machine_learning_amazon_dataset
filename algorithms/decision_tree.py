@@ -9,6 +9,7 @@ from __future__ import print_function
 # ============================================================================
 
 import functools
+import math
 import numpy as np
 
 # ============================================================================
@@ -39,15 +40,40 @@ class BinaryDecistionTree(object):
         """ TODO """
         self.print_rec(0)
 
+def entropy(examples):
+    """ TODO """
+
+    value_class_size = [
+        (examples['classification'] == k).sum()
+        for k in np.unique(examples['classification'])
+        ]
+
+    result = 0.0
+    total_size = examples.size
+
+    for size in value_class_size:
+        probability = float(size) / float(total_size)
+        result += probability * math.log(probability, 2.0)
+
+    return - result
+
 def importance(examples, attribute):
     """
     The importante of attribute in the given examples
     """
 
-    _ = examples
-    _ = attribute
+    attribute_classes = [
+        examples[examples['data'][:, attribute] == k]
+        for k in np.unique(examples['data'][:, attribute])
+        ]
 
-    return 0
+    remainder = 0.0
+    for attribute_class in attribute_classes:
+        remainder += entropy(attribute_class)
+
+    gain = entropy(examples) - remainder
+
+    return gain
 
 def plurality_value(examples):
     """
@@ -90,8 +116,8 @@ def decision_tree_learning(examples, attributes, attribute_values, parent_exampl
     if attributes.size == 0:
         return plurality_value(examples)
 
-    attribute_importances = np.apply_along_axis(
-        functools.partial(importance, examples), 0, attributes)
+    vectorized_importance = np.vectorize(functools.partial(importance, examples))
+    attribute_importances = vectorized_importance(attributes)
     important_attribute = attributes[np.argmax(attribute_importances)]
     tree = BinaryDecistionTree()
     tree.attribute = important_attribute
@@ -121,6 +147,50 @@ def main():
     arr['classification'][3] = 1
     arr['data'][4] = [1, 1, 2]
     arr['classification'][4] = 2
+
+    
+    restaurant = np.zeros(12, dtype=[('data', '10i4'), ('classification', 'i4')])
+    restaurant['data'][0]   = [1, 0, 0, 1, 1, 2, 0, 1, 0, 0]
+    restaurant['data'][1]   = [1, 0, 0, 1, 2, 0, 0, 0, 1, 2]
+    restaurant['data'][2]   = [0, 1, 0, 0, 1, 0, 0, 0, 2, 0]
+    restaurant['data'][3]   = [1, 0, 1, 1, 2, 0, 1, 0, 1, 1]
+    restaurant['data'][4]   = [1, 0, 1, 0, 2, 2, 0, 1, 0, 3]
+    restaurant['data'][5]   = [0, 1, 0, 1, 1, 1, 1, 1, 3, 0]
+    restaurant['data'][6]   = [0, 1, 0, 0, 0, 0, 1, 0, 2, 0]
+    restaurant['data'][7]   = [0, 0, 0, 1, 1, 1, 1, 1, 1, 0]
+    restaurant['data'][8]   = [0, 1, 1, 0, 2, 0, 1, 0, 2, 3]
+    restaurant['data'][9]   = [1, 1, 1, 1, 2, 2, 0, 1, 3, 1]
+    restaurant['data'][10]  = [0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+    restaurant['data'][11]  = [1, 1, 1, 1, 2, 0, 0, 0, 2, 2]
+    restaurant['classification'][0]     = 1
+    restaurant['classification'][1]     = 0
+    restaurant['classification'][2]     = 1
+    restaurant['classification'][3]     = 1
+    restaurant['classification'][4]     = 0
+    restaurant['classification'][5]     = 1
+    restaurant['classification'][6]     = 0
+    restaurant['classification'][7]     = 1
+    restaurant['classification'][8]     = 0
+    restaurant['classification'][9]     = 0
+    restaurant['classification'][10]    = 0
+    restaurant['classification'][11]    = 1
+
+    attribute_values = {}
+    attribute_values[0] = range(2) # Alt
+    attribute_values[1] = range(2) # Bar
+    attribute_values[2] = range(2) # Fri
+    attribute_values[3] = range(2) # Hun
+    attribute_values[4] = range(3) # Pat [none, some, full]
+    attribute_values[5] = range(3) # Price [$, $$, $$$]
+    attribute_values[6] = range(2) # Rain
+    attribute_values[7] = range(2) # Res
+    attribute_values[8] = range(4) # Type [French, Thai, Burger, Italian]
+    attribute_values[9] = range(4) # Est [0-10, 10-30, 30-60, >60]
+
+    decition_tree = decision_tree_learning(restaurant, \
+        np.array(range(10)), attribute_values, np.array([]))
+        
+    decition_tree.print()
 
     decition_tree = decision_tree_learning(arr, \
         np.array(range(3)),                     \
