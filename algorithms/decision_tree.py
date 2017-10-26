@@ -19,7 +19,7 @@ def print_spacers(num_spaces):
     for _ in xrange(num_spaces):
         print('\t', end='')
 
-class BinaryDecistionTree(object):
+class NaryDecisionTree(object):
     """ Binary Decision Tree """
     def __init__(self):
         self.children = {}
@@ -68,8 +68,11 @@ def importance(examples, attribute):
         ]
 
     remainder = 0.0
+    total_size = examples.size
+
     for attribute_class in attribute_classes:
-        remainder += entropy(attribute_class)
+        probability = float(attribute_class.size) / float(total_size)
+        remainder += probability * entropy(attribute_class)
 
     gain = entropy(examples) - remainder
 
@@ -119,7 +122,7 @@ def decision_tree_learning(examples, attributes, attribute_values, parent_exampl
     vectorized_importance = np.vectorize(functools.partial(importance, examples))
     attribute_importances = vectorized_importance(attributes)
     important_attribute = attributes[np.argmax(attribute_importances)]
-    tree = BinaryDecistionTree()
+    tree = NaryDecisionTree()
     tree.attribute = important_attribute
     for value in attribute_values[important_attribute]:
         new_examples = np.array([example for example in examples \
@@ -187,17 +190,17 @@ def main():
     attribute_values[8] = range(4) # Type [French, Thai, Burger, Italian]
     attribute_values[9] = range(4) # Est [0-10, 10-30, 30-60, >60]
 
-    decition_tree = decision_tree_learning(restaurant, \
+    decision_tree = decision_tree_learning(restaurant, \
         np.array(range(10)), attribute_values, np.array([]))
-        
-    decition_tree.print()
 
-    decition_tree = decision_tree_learning(arr, \
+    decision_tree.print()
+
+    decision_tree = decision_tree_learning(arr, \
         np.array(range(3)),                     \
         {0: [0, 1], 1: [0, 1], 2: [0, 1, 2]},   \
         np.array([]))
 
-    decition_tree.print()
+    decision_tree.print()
 
 if __name__ == "__main__":
     main()
