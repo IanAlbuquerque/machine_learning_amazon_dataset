@@ -15,7 +15,11 @@ import utils.reader
 import utils.viewer
 import utils.algorithms
 
-import algorithms.dumb
+# ============================================================================
+
+# LOADS ALL ALGORITHMS
+from algorithms import __all__ as algorithms_submodules
+ALGORITHMS = __import__('algorithms', globals(), locals(), algorithms_submodules, -1)
 
 # ============================================================================
 
@@ -37,7 +41,7 @@ def main():
     elif not sys.argv[1] + '.py' in listdir('algorithms'):
         print_usage_message()
     else:
-        accuracy = utils.algorithms.run('data', getattr(algorithms, sys.argv[1]))
+        accuracy = utils.algorithms.run('data', getattr(ALGORITHMS, sys.argv[1]))
         print('Accuracy = ' + str(accuracy * 100) + ' %')
 
 # ============================================================================
