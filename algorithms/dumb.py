@@ -1,4 +1,5 @@
 """ Guesses randomly """
+# 10.0% accuracy
 
 def train(x_data, y_data, classes):
     """ trains the algorithm """
