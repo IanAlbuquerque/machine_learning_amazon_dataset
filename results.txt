@@ -1,0 +1,7 @@
+KNN scikit-learn:
+
+    kneighbours = 5
+    p = 1
+    weights='uniform'
+
+    result: 86.23%
