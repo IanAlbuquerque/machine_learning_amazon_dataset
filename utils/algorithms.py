@@ -15,7 +15,6 @@ def test(algorithm, parameters, x_data, y_data):
             num_correct += 1
         else:
             num_error += 1
-        print(100.0 * float(num_correct) / max(1.0,float(num_error + num_correct)))
 
     return float(num_correct) / float(num_error + num_correct)
 
