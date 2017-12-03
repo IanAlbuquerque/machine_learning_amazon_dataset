@@ -21,7 +21,7 @@ def classify(parameters, data):
     # nearest = sorted(zip(distances, y_data), key=itemgetter(0))[:K_CONSTANT]
     item_indexes = np.argsort(distances)[:K_CONSTANT]
     nearest = y_data[item_indexes]
-    print nearest
+    print(nearest)
     return stats.mode(nearest, axis=None)[0][0]
 
     # def dist(xy_data):

@@ -14,12 +14,13 @@ from os import listdir
 import utils.reader
 import utils.viewer
 import utils.algorithms
+# import pkgutil
 
 # ============================================================================
 
 # LOADS ALL ALGORITHMS
 from algorithms import __all__ as algorithms_submodules
-ALGORITHMS = __import__('algorithms', globals(), locals(), algorithms_submodules, -1)
+ALGORITHMS = __import__('algorithms', globals()['algorithms_submodules'], locals(), algorithms_submodules, 0)
 
 # ============================================================================
 
