@@ -5,3 +5,19 @@ KNN scikit-learn:
     weights='uniform'
 
     result: 86.23%
+
+    Haar transform:
+
+    result: 84%
+
+
+
+CNN (Convolutional Neural Network):
+
+    conv poll conv poll flatten dropout dense: 86.4%
+
+SVM:
+
+    (C=10,kernel="poly") = 87.23%
+
+    (C=10**6,kernel='rbf',gamma=(4*10**-7)) = 90.13%
