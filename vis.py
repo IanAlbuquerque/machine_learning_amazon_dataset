@@ -37,7 +37,7 @@ def main():
                     9: "#d2f53c", 
                     0: "#fabebe"}
     colors = data["target"].map(lambda x: color_wheel.get(x))
-    scatter_matrix(data[[0, 1]], color=colors, alpha=0.6, figsize=(5, 5), diagonal='kde')
+    scatter_matrix(data[[0, 1]], color=colors, alpha=0.6, figsize=(5, 5), diagonal='hist')
     plt.show()
 
 if __name__ == "__main__":
