@@ -80,18 +80,17 @@ def cnn_model_fn(features, labels, mode):
   dense = tf.layers.dense(inputs=pool2_flat, units=1024, activation=tf.nn.relu)
 
   # Add dropout operation; 0.6 probability that element will be kept
-  dropout = tf.layers.dropout(
-      inputs=dense, rate=0.4, training=mode == tf.estimator.ModeKeys.TRAIN)
+  dropout = tf.layers.dropout(inputs=dense, rate=0.4, training=mode == tf.estimator.ModeKeys.TRAIN)
 
    # Dense Layer
   # Densely connected layer with 512 neurons
   # Input Tensor Shape: [batch_size, 1024]
   # Output Tensor Shape: [batch_size, 512]
-  dense = tf.layers.dense(inputs=dropout, units=512, activation=tf.nn.relu)
+#   dense2 = tf.layers.dense(inputs=dropout, units=512, activation=tf.nn.relu)
 
-  # Add dropout operation; 0.6 probability that element will be kept
-  dropout = tf.layers.dropout(
-      inputs=dense, rate=0.4, training=mode == tf.estimator.ModeKeys.TRAIN)
+#   Add dropout operation; 0.6 probability that element will be kept
+#   dropout = tf.layers.dropout(
+#       inputs=dense2, rate=0.4, training=mode == tf.estimator.ModeKeys.TRAIN)
 
   # Logits layer
   # Input Tensor Shape: [batch_size, 512]
@@ -165,12 +164,12 @@ def main(unused_argv):
   train_input_fn = tf.estimator.inputs.numpy_input_fn(
       x={"x": train_data},
       y=train_labels,
-      batch_size=100,
+      batch_size=128,
       num_epochs=None,
       shuffle=True)
   mnist_classifier.train(
       input_fn=train_input_fn,
-      steps=90000,
+      steps=100000,
       hooks=[logging_hook])
 
   # Evaluate the model and print results
