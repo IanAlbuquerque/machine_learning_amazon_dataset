@@ -30,6 +30,7 @@
 
 \usepackage{blindtext} % Package to generate dummy text throughout this template 
 \usepackage[utf8]{inputenc}
+\usepackage{graphicx}
 
 \usepackage[sc]{mathpazo} % Use the Palatino font
 \usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
@@ -192,6 +193,24 @@ Text requiring further explanation\footnote{Example footnote}.
 
 %------------------------------------------------
 
+\section{Approaches}
+
+\subsection{Convolutional Neural Networks}
+
+     The Convolutional Neural Networks (CNNs) are the current state-of-the-art for the Fashion-MNIST dataset with 96.3\% accuracy \cite{randomerasingdataaugmentationpaper}.For all tests with CNNs the values of the pixels were divided by 255, so that the values are always between 0 and 1. The first CNN that we used was based on the 1994s LeNet5 \cite{yannLeCun:1998}, one of the first CNNs, that has a 99.05\% accuracy for the MNIST dataset \cite{yannLeCun:mnist}. We used the same layers and kernel sizes but with more features on each convolutional layer. \ref{fig:lenet5} shows the architecture used for the first CNN test.
+
+    \begin{figure}[h]
+    \begin{center}
+        \includegraphics[scale=0.8]{lenet5Arch.jpg}
+        \caption{LeNet5 based Architecture\label{fig:lenet5}}
+    \end{center}
+    \end{figure}
+    
+    
+    We trained the network for 200 epochs and got an accuracy of 89.02\%, then we added rotations from -5 to 5 degrees and got 89.81\%.
+    
+    In orde
+
 \section{Results}
 
 \begin{table}
@@ -224,7 +243,6 @@ e = mc^2
 
 \subsection{Subsection One}
 
-A statement requiring citation \cite{Figueredo:2009dg}.
 \blindtext % Dummy text
 
 \subsection{Subsection Two}
@@ -235,39 +253,8 @@ A statement requiring citation \cite{Figueredo:2009dg}.
 %	REFERENCE LIST
 %----------------------------------------------------------------------------------------
 
-\begin{thebibliography}{99} % Bibliography - this is intentionally simple in this template
-
-\bibitem{LWan:2013dg}
-L. Wan, M. Zeiler, S. Zhang, Y. LeCun, and R. Fergus, “Regularization of neural networks using dropconnect,” Icml, no. 1, pp. 109–111, 2013.
-
-\bibitem{DCirean:2012dg}
-D. Cirean, U. Meier, and J. Schmidhuber, “Multi-column Deep Neural Networks for Image Classification,” International Conference of Pattern Recognition, no. February, pp. 3642–3649, 2012. 
-
-\bibitem{ISato:2015dg}
-I. Sato, H. Nishimura, and K. Yokoi, “APAC: Augmented PAttern Classification with Neural Networks,” Arxiv, 2015.
-
-\bibitem{JRChang:2015dg}
-J.-R. Chang and Y.-S. Chen, “Batch-normalized Maxout Network in Network,” Arxiv, 2015.
-
-\bibitem{CYLee:2015dg}
-C.-Y. Lee, P. W. Gallagher, and Z. Tu, “Generalizing Pooling Functions in Convolutional Neural Networks: Mixed, Gated, and Tree,” in Proceedings of the 19th International Conference on Artificial Intelligence and Statistics, 2015, pp. 464–472.
-
-\bibitem{CFran:2017dg}
-Chollet, François. "Many good ideas will not work well on MNIST (e.g. batch norm). Inversely many bad ideas may work on MNIST and no transfer to real CV." 13 April 2017, 11:51 a.m. Tweet.
-
-\bibitem{FashionMNIST}
-Fashion-MNIST: a Novel Image Dataset for Benchmarking Machine Learning Algorithms. Han Xiao, Kashif Rasul, Roland Vollgraf
-
-\bibitem{scikitlearn}
-API design for machine learning software: experiences from the scikit-learn project, Buitinck et al., 2013
-
-\bibitem{scikitlearnbenchmark}
-Zalando Research. Fashion MNIST Scikit-Learn benchmark. http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/
-
-\bibitem{randomerasingdataaugmentationpaper}
-Zhong Z., Zheng L., Kang G., Li S., Yang Y. . Random Erasing Data Augmentation. ArXiv e-prints 1708.04896 2017
-
-\end{thebibliography}
+\bibliography{references}
+\bibliographystyle{plain}
 
 %----------------------------------------------------------------------------------------
 
