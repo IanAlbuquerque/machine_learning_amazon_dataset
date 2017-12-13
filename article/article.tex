@@ -26,7 +26,7 @@
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
-\documentclass[twoside,twocolumn]{article}
+\documentclass{article}
 
 \usepackage{blindtext} % Package to generate dummy text throughout this template 
 \usepackage[utf8]{inputenc}
@@ -89,9 +89,7 @@
 }
 \date{\today} % Leave empty to omit a date
 \renewcommand{\maketitlehookd}{%
-\begin{abstract}
-\noindent \blindtext % Dummy abstract text - replace \blindtext with your abstract text
-\end{abstract}
+
 }
 
 %----------------------------------------------------------------------------------------
@@ -112,13 +110,28 @@ Current results achieve over 99.7\% accuracy using different techniques
 \cite{LWan:2013dg} \cite{DCirean:2012dg} \cite{ISato:2015dg} \cite{JRChang:2015dg} \cite{CYLee:2015dg}.
 Also, many good techniques do not work well on this dataset because of its simplicity \cite{CFran:2017dg}.
 With that in mind, the Fashion MNIST dataset \cite{FashionMNIST} was created. It has same size and format
-of the MNIST dataset (70.000 grayscale images of size 28x28 labeled into 10 different classes) meaning that
+of the MNIST dataset meaning that
 it should be as simple to use, but its images consist of fashion items which are supposedly harder to
 classify.
 
 The goal of this work is to explore different techniques of supervised learning for classifying the images
 in the Fashion MNIST dataset. We want to measure the accuracy of our tests and compare them with different
-results on the same dataset, while also trying to obtain some intuition behind the data.
+results on the same dataset, while also trying to obtain some intuition behind the data.\
+
+
+\section{DataSet}
+
+	The Fashion MNIST dataset is composed by 70.000 grayscale(0-255) images of size 28x28 labeled into the following 10 different classes: T-shirt/top, Trouser, Pullover, Dress, Coat, Sandal, Shirt, Sneaker, Bag and Ankle boot.\ref{fig:fashionex} is an example of one of the images in the dataset.
+	
+	\begin{figure}[h]
+    \begin{center}
+        \includegraphics[scale=0.8]{fashionExample.png}
+        \caption{Image Example\label{fig:fashionex}}
+    \end{center}
+    \end{figure}
+    
+    For the implementation we used Python and sklearn\cite{scikitlearn} and tensorflow \cite{tensorflow} libraries. The input for the algorithms are the pixels values.
+	
 
 %----------------------------------------------------------------------------------------
 
@@ -144,7 +157,7 @@ each value by 255 to achieve features that goes from 0 to 1.
 \section{Known Results}
 
 The Fashion MNIST repository contains some benchmarks using the python library
-scikit-learn \cite{scikitlearn} \cite{scikitlearnbenchmark}. They are not meant
+scikit-learn \cite{scikitlearnbenchmark}. They are not meant
 to be efficient or good, but they work as a baseline for our project.
 The best result (corresponding to the best selection of parameters tested)
 of each algorithm are displayed in table \ref{table:scikit-benchmark}.
@@ -218,7 +231,20 @@ Text requiring further explanation\footnote{Example footnote}.
     \end{center}
     \end{figure}
     
-    The accuracy obtained from training the new network for 300 epochs was 90.06\%, and for 938 epochs, 91.27\%.
+    The accuracy obtained from training the new network for 300 epochs was 90.06\%, and for 938 epochs, 91.27\%. When we tried to increase the number of epochs again, the accuracy dropped slightly, so we went to another approach. \ref{fig:lossRateVGG} shows the value of the loss rate given the number of steps.
+    
+    
+    \begin{figure}[h]
+    \begin{center}
+		\includegraphics[scale=0.6]{lossRateVGG.png}
+        \caption{Loss Rate for VGG based network\label{fig:lossRateVGG}}    
+    \end{center}
+    \end{figure}
+    
+    Our next approach was to use Random Erasing as data augmentation, since it was used in the state-of-the-art implementation. Random Erasing randomly
+selects a rectangle region in an image and erases its pixels with random values, which reduces the risk of over-fitting. For 300 epochs the accuracy was . Seeing that adding only the Random Erasing technique decreased the accuracy, we combined it with the rotation from -5 to 5 degrees.
+    
+    
 
 \section{Results}
 
