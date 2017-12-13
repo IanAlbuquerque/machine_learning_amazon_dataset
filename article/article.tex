@@ -110,7 +110,67 @@
 Current results achieve over 99.7\% accuracy using different techniques
 \cite{LWan:2013dg} \cite{DCirean:2012dg} \cite{ISato:2015dg} \cite{JRChang:2015dg} \cite{CYLee:2015dg}.
 Also, many good techniques do not work well on this dataset because of its simplicity \cite{CFran:2017dg}.
-Because of this, many consider this an improper
+With that in mind, the Fashion MNIST dataset \cite{FashionMNIST} was created. It has same size and format
+of the MNIST dataset (70.000 grayscale images of size 28x28 labeled into 10 different classes) meaning that
+it should be as simple to use, but its images consist of fashion items which are supposedly harder to
+classify.
+
+The goal of this work is to explore different techniques of supervised learning for classifying the images
+in the Fashion MNIST dataset. We want to measure the accuracy of our tests and compare them with different
+results on the same dataset, while also trying to obtain some intuition behind the data.
+
+%----------------------------------------------------------------------------------------
+
+\section{Preparation}
+
+The Fashion MNIST is already subdivided into two sets. A set of 60.000 images (the training set)
+and a set of 10.000 images (the test set). The idea is to learn with the training set and then
+evaluate the performance of our trained model with the test set.
+
+We will be using the standard accuracy as a metric for our tests:
+\begin{equation}
+\label{eq:acc}
+accuracy = \frac{\#(correct\_classifications)}{\#(test\_set\_size)}
+\end{equation}
+
+The dataset is already provided as a list of (28*28)+1 sized vectors corresponding
+to each of the 28*28 pixels of the image plus 1 entry for the classification.
+Since each pixel value was an integer from 0 to 255, we have opted to divide
+each value by 255 to achieve features that goes from 0 to 1.
+
+%----------------------------------------------------------------------------------------
+
+\section{Known Results}
+
+The Fashion MNIST repository contains some benchmarks using the python library
+scikit-learn \cite{scikitlearn} \cite{scikitlearnbenchmark}. They are not meant
+to be efficient or good, but they work as a baseline for our project.
+The best result (corresponding to the best selection of parameters tested)
+of each algorithm are displayed in table \ref{table:scikit-benchmark}.
+
+\begin{table}
+\centering
+\begin{tabular}{llr}
+\toprule
+Algorithm Name & Best Accuracy (\%) \\
+\midrule
+SVC & $89.7$ \\
+Gradient Boosting & $88.8$ \\
+Random Forest & $87.9$ \\
+MLP & $87.7$ \\
+K-Neighbors & $86.0$ \\
+Logistic Regression & $84.0$ \\
+SGD & $82.9$ \\
+Decision Tree & $80.1$ \\
+\bottomrule
+\end{tabular}
+\caption{Fashion MNIST Scikit-Learn Benchmark \cite{scikitlearnbenchmark} }
+\label{table:scikit-benchmark}
+\end{table}
+
+The current state of art for the Fashion MNIST dataset is a recent one, with 96.3\% accuracy using Wide
+Residual Networks using random erasing data augmentation \cite{randomerasingdataaugmentationpaper}.
+We will consider this as the ceiling accuracy for our project.
 
 %------------------------------------------------
 
@@ -195,6 +255,17 @@ C.-Y. Lee, P. W. Gallagher, and Z. Tu, “Generalizing Pooling Functions in Conv
 \bibitem{CFran:2017dg}
 Chollet, François. "Many good ideas will not work well on MNIST (e.g. batch norm). Inversely many bad ideas may work on MNIST and no transfer to real CV." 13 April 2017, 11:51 a.m. Tweet.
 
+\bibitem{FashionMNIST}
+Fashion-MNIST: a Novel Image Dataset for Benchmarking Machine Learning Algorithms. Han Xiao, Kashif Rasul, Roland Vollgraf
+
+\bibitem{scikitlearn}
+API design for machine learning software: experiences from the scikit-learn project, Buitinck et al., 2013
+
+\bibitem{scikitlearnbenchmark}
+Zalando Research. Fashion MNIST Scikit-Learn benchmark. http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/
+
+\bibitem{randomerasingdataaugmentationpaper}
+Zhong Z., Zheng L., Kang G., Li S., Yang Y. . Random Erasing Data Augmentation. ArXiv e-prints 1708.04896 2017
 
 \end{thebibliography}
 
