@@ -119,19 +119,18 @@ in the Fashion MNIST dataset. We want to measure the accuracy of our tests and c
 results on the same dataset, while also trying to obtain some intuition behind the data.\
 
 
-\section{DataSet}
+\section{The Dataset}
 
-	The Fashion MNIST dataset is composed by 70.000 grayscale(0-255) images of size 28x28 labeled into the following 10 different classes: T-shirt/top, Trouser, Pullover, Dress, Coat, Sandal, Shirt, Sneaker, Bag and Ankle boot.\ref{fig:fashionex} is an example of one of the images in the dataset.
+    The Fashion MNIST dataset is composed by 70.000 grayscale (0-255) images of size 28x28 labeled into the following 10 different classes: T-shirt/top, Trouser, Pullover, Dress, Coat, Sandal, Shirt, Sneaker, Bag and Ankle boot. Figure \ref{fig:fashionex} is an example of one of the images in the dataset.
 	
-	\begin{figure}[h]
+    For the implementation we used Python and Scikit-Learn \cite{scikitlearn} and TensorFlow \cite{tensorflow} libraries. The input for the algorithms are the pixels values.
+
+    \begin{figure}[h]
     \begin{center}
         \includegraphics[scale=0.8]{fashionExample.png}
-        \caption{Image Example\label{fig:fashionex}}
+        \caption{Example of an image in the dataset\label{fig:fashionex}}
     \end{center}
     \end{figure}
-    
-    For the implementation we used Python and sklearn\cite{scikitlearn} and tensorflow \cite{tensorflow} libraries. The input for the algorithms are the pixels values.
-	
 
 %----------------------------------------------------------------------------------------
 
@@ -183,7 +182,7 @@ Decision Tree & $80.1$ \\
 \end{table}
 
 The current state of art for the Fashion MNIST dataset is a recent one, with 96.3\% accuracy using Wide
-Residual Networks using random erasing data augmentation \cite{randomerasingdataaugmentationpaper}.
+Residual Networks using random erasing data augmentation \cite{randomerasingdataaugmentationpaper} and other image pre-processing techniques.
 We will consider this as the ceiling accuracy for our project.
 
 %------------------------------------------------
@@ -203,7 +202,7 @@ We tried using the Euclidean distance as the metric and K = 50 as the parameters
 For that, we obtained an accuracy of 75.80\%, quite far from the scikit-learn benchmark.
 
 This algorithm was pretty fast to implement.
-Since its training consists in only saving the training set, it is pretty fast.
+Since its training consists in only saving the training set, it is pretty fast to train.
 However, it does take a lot of time to classify each example.
 
 \subsubsection{Distance from Mean}
@@ -249,7 +248,7 @@ technique. We obtained slightly better result, with an accuracy of 76.99\%.
 \subsubsection{Polynomial Kernel}
 
 For the SVM we used the Scikit-Learn implementation. We first tested with a 3rd degree polynomial kernel and with a penalty parameter C = 10, since
-it was the parameters used for the benchmark. We obtained an accuracy of 87.23\%, which is slightly different from the accuracy described in the benchmark (87,23\%).
+they were the parameters used for the benchmark. We obtained an accuracy of 87.23\%, which is slightly different from the accuracy described in the benchmark (89,7\%).
 
 \subsubsection{Polynomial Kernel w/ Pre-Processing}
 
@@ -268,7 +267,7 @@ enough data for the generalization necessary for good results.
 
 \subsubsection{Gaussian Kernel}
 
-We also tested for a gaussian kernel, with parameter C = $10^6$ and gamma = $4 10^-7$ since it achieved good results from previous works.
+We also tested for a gaussian kernel, with parameter C = $10^6$ and gamma = $4  \cdot 10^{-7}$ since it achieved good results from previous works.
 As expected, we obtained better accuracy, achieving 90.13\% for those parameters.
 
 \subsubsection{Gaussian Kernel w/ Rotations and Canny Filterl}
@@ -279,7 +278,7 @@ the significance features of the image, it clearly was not the case.
 
 \subsection{Convolutional Neural Networks}
 
-     The Convolutional Neural Networks (CNNs) are the current state-of-the-art for the Fashion-MNIST dataset with 96.3\% accuracy \cite{randomerasingdataaugmentationpaper}. For all tests with CNNs the values of the pixels were divided by 255, so that the values are always between 0 and 1. To be able to train faster and with larger networks, we used the GPU NVIDIA GDX980N that uses CUDA.
+     The Convolutional Neural Networks (CNNs) are the current state of the art for the Fashion-MNIST dataset with 96.3\% accuracy \cite{randomerasingdataaugmentationpaper}. To be able to train faster and with larger networks, we used the GPU NVIDIA GTX 980M with CUDA.
      
       The first CNN that we used was based on the 1994s LeNet5 \cite{yannLeCun:1998}, one of the first CNNs, that has a 99.05\% accuracy for the MNIST dataset \cite{yannLeCun:mnist}. We used the same layers and kernel sizes but with more features on each convolutional layer. \ref{fig:lenet5} shows the architecture used for the first CNN test.
 
@@ -291,7 +290,7 @@ the significance features of the image, it clearly was not the case.
     \end{figure}
     
     
-    We trained the network for 200 epochs and got an accuracy of 89.02\%, then, to increase the examples in the training set, we added rotations from -5 to 5 degrees and got 89.81\%.
+    We trained the network for 200 epochs and got an accuracy of 89.02\%, then, to increase the examples in the training set, we added rotations from -5 to 5 degrees, degree by degree, and got 89.81\%.
     
     Seeking to improve our accuracy, we used a more complex and deeper CNN as base, the Very Deep Convolutional Networks \cite{DBLP:journals/corr/SimonyanZ14a} used in the  ImageNet Challenge. Since this is a deep CNN and made for 224x224 RGB images, we adapted to a smaller network with a receptive field of 28x28 and fewer units on the fully connected layer. \ref{fig:vgg} shows the architecture of the new CNN.
     
@@ -318,11 +317,13 @@ selects a rectangle region in an image and erases its pixels with random values,
 
 	\section{Conclusions}
 	
-	After running all the different algorithms we could realize the importance of a powerfull resource for processing, in our case the GPU; of a usefull pre-processing, otherwise we could decrease the amount of information in the data and worsen the result; the efficiency of the Convolutional Neural Networks for a task of this kind, because they got the higher results sometimes even in less time.
+	After running all the different algorithms we could realize the importance of a powerfull resource for processing, in our case the GPU. We also have seen the importance of choosing good pre-processing techniques, that can either boost or decrease the quality of the test.
+	Also, we have witnessed the efficiency of the Convolutional Neural Networks for a task of this kind, because they got the higher results sometimes even in less time.
 	
-	Our results were above the ones in the benchmark, but still lower than the state-of-the-art. The state-of-the-art used a more complex network, with more pre-processing, this is what we believe was the cause for the difference between our accuracy and the state-of-the-art.
+	Our results were above the ones in the benchmark, but still lower than the state of art. The state of art used a more complex network, with more pre-processing, which is what we believe that was the cause for the difference between our accuracy.
 	
-	Our next steps to improve the accuracy of the result are to add more data augmentation combined with the Random Erasing (i.e flipping, rotation and cropping) and implement and test different networks with tensorflow, such as the ResNet, which is similar to the CNN used in the state-of-the-art implementantion. We are also extending the currents implementations to more complex data sets like CIFAR-10 and CIFAR-100, that are datasets with 32x32 RGB images with respectively 10 and 100 different labeled classes.
+	Our next steps to improve the accuracy of the result are to add more data augmentation combined with the Random Erasing (i.e flipping, rotation and cropping) and to implement and test different networks with TensorFlow, such as the ResNet, which is similar to the CNN used in the state of the art implementation.
+	We are also extending the currents implementations to more complex data sets like CIFAR-10 and CIFAR-100, that are datasets with 32x32 RGB images with respectively 10 and 100 different labeled classes.
     
 
 %----------------------------------------------------------------------------------------
