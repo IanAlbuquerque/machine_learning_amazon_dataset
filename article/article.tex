@@ -175,29 +175,98 @@ We will consider this as the ceiling accuracy for our project.
 
 %------------------------------------------------
 
-\section{Methods}
-
-Maecenas sed ultricies felis. Sed imperdiet dictum arcu a egestas. 
-\begin{itemize}
-\item Donec dolor arcu, rutrum id molestie in, viverra sed diam
-\item Curabitur feugiat
-\item turpis sed auctor facilisis
-\item arcu eros accumsan lorem, at posuere mi diam sit amet tortor
-\item Fusce fermentum, mi sit amet euismod rutrum
-\item sem lorem molestie diam, iaculis aliquet sapien tortor non nisi
-\item Pellentesque bibendum pretium aliquet
-\end{itemize}
-\blindtext % Dummy text
-
-Text requiring further explanation\footnote{Example footnote}.
-
-%------------------------------------------------
-
 \section{Approaches}
+
+\subsection{Random Classifier}
+
+To test our framework, we implemented a random classifier that simply guesses one of the 10 classes. The accuracy was 10\% as expected.
+
+\subsection{K-Nearest-Neighbors (KNN)}
+
+\subsubsection{Own implementation}
+
+Our first attempt at the problem was implementing the K-Nearest-Neighbors algorithm ourselves.
+We tried using the Euclidean distance as the metric and K = 50 as the parameters for the algorithm.
+For that, we obtained an accuracy of 75.80\%, quite far from the scikit-learn benchmark.
+
+This algorithm was pretty fast to implement.
+Since its training consists in only saving the training set, it is pretty fast.
+However, it does take a lot of time to classify each example.
+
+\subsubsection{Distance from Mean}
+
+Inspired by the KNN algorithm, we implemented a "distance from mean" algorithm in which for the training we
+take the mean of each group of instances of the same class and for the testing we simply classify as the nearest
+of the 10 means obtained in the training part.
+
+This is basically a worse version of the KNN and the results were worse accordingly.
+We obtained an accuracy of 67.68\%.
+The benefits were the fact that it was easy to implement, fast to train and fast to classify.
+
+\subsubsection{Scikit-Learn Implementation}
+
+We also tested for the Scikit-Learn implementation for the KNN algorithm.
+This time, we tested for K = 5 neighbors using the Manhattan distance.
+Our obtained accuracy was 86.23\%, the exact accuracy from the benchmark, as expected.
+
+\subsubsection{Scikit-Learn w/ Haar Transform Pre-Processing}
+
+For the next test, we tried to pre-process the dataset by changing the feature space. We  maintained the parameters K = 5 and
+Manhattan distance, but also used the Haar transform to change the feature space. The idea was to use features that described the frequencies
+in the image, allowing a more global description of the image. However, it did not achieve good results, resulting in an accuracy of 84.0\%, lower than
+the algorithm without the Haar Transform pre-processing.
+
+\subsection{Single Layer Perceptron}
+
+\subsubsection{Standard Implementation}
+
+We implemented ourselves a single layer perceptron and trained it with only 1 iteration over the dataset.
+We did not invest a lot of effort in this approach because it relies on the assumption that the dataset
+is linearly separable for the algorithm to converge, which clearly is not the case for the dataset.
+We obtained an accuracy of 75.8\% for this approach
+
+\subsubsection{MIRA (Margin-infused relaxed algorithm)}
+
+We made some changes to the update step of the algorithm so it took into account how much
+each error should affect the weights of the perceptron, using the Margin-infused relaxed algorithm
+technique. We obtained slightly better result, with an accuracy of 76.99\%.
+
+\subsection{SVM (Scikit-Learn Implementation)}
+
+\subsubsection{Polynomial Kernel}
+
+For the SVM we used the Scikit-Learn implementation. We first tested with a 3rd degree polynomial kernel and with a penalty parameter C = 10, since
+it was the parameters used for the benchmark. We obtained an accuracy of 87.23\%, which is slightly different from the accuracy described in the benchmark (87,23\%).
+
+\subsubsection{Polynomial Kernel w/ Pre-Processing}
+
+We tried to improve the results by pre-processing the dataset by downscaling the images to 7x7, normalizing the dataset by feature (pixel) and also adding
+to the algorithm input rotations of the original dataset from -10 to 10 degrees, varying degree by degree.
+With that technique, we obtained an accuracy of 84.91\%, which was worse than without the pre-processing. We suspect that down sampling the dataset
+to 7x7 images caused too much information loss.
+
+Because of that, we changed the down sampling to 14x14 and also changed the rotation interval to the interval -5 to 5 degrees.
+The new accuracy was 89.39\%, an improvement of about 2\% compared to the example without the pre-processing.
+
+It is also important to note that the pre-processing heavily improved the accuracy of the algorithm when using a small subset of the
+original dataset. For instance, for 100 instances, the accuracy was improved from 43.69\% to 64.21\% and for 1000 instances it was
+improved from 59.10\% to 78.56\%. It is probably due to the fact that adding the rotation benefits a lot small datasets that do not contain
+enough data for the generalization necessary for good results.
+
+\subsubsection{Gaussian Kernel}
+
+We also tested for a gaussian kernel, with parameter C = $10^6$ and gamma = $4 10^-7$ since it achieved good results from previous works.
+As expected, we obtained better accuracy, achieving 90.13\% for those parameters.
+
+\subsubsection{Gaussian Kernel w/ Rotations and Canny Filterl}
+
+By adding rotations from -5 to 5 degrees, without down sampling, and also applying the canny filter (an edge detection filter)
+for the dataset, we achieved a result of 80.36\%. Even though we thought that applying the canny filter was a good idea to improve
+the significance features of the image, it clearly was not the case.
 
 \subsection{Convolutional Neural Networks}
 
-     The Convolutional Neural Networks (CNNs) are the current state-of-the-art for the Fashion-MNIST dataset with 96.3\% accuracy \cite{randomerasingdataaugmentationpaper}.For all tests with CNNs the values of the pixels were divided by 255, so that the values are always between 0 and 1. The first CNN that we used was based on the 1994s LeNet5 \cite{yannLeCun:1998}, one of the first CNNs, that has a 99.05\% accuracy for the MNIST dataset \cite{yannLeCun:mnist}. We used the same layers and kernel sizes but with more features on each convolutional layer. \ref{fig:lenet5} shows the architecture used for the first CNN test.
+     The Convolutional Neural Networks (CNNs) are the current state-of-the-art for the Fashion-MNIST dataset with 96.3\% accuracy \cite{randomerasingdataaugmentationpaper}. For all tests with CNNs the values of the pixels were divided by 255, so that the values are always between 0 and 1. The first CNN that we used was based on the 1994s LeNet5 \cite{yannLeCun:1998}, one of the first CNNs, that has a 99.05\% accuracy for the MNIST dataset \cite{yannLeCun:mnist}. We used the same layers and kernel sizes but with more features on each convolutional layer. \ref{fig:lenet5} shows the architecture used for the first CNN test.
 
     \begin{figure}[h]
     \begin{center}
@@ -210,44 +279,6 @@ Text requiring further explanation\footnote{Example footnote}.
     We trained the network for 200 epochs and got an accuracy of 89.02\%, then we added rotations from -5 to 5 degrees and got 89.81\%.
     
     In orde
-
-\section{Results}
-
-\begin{table}
-\caption{Example table}
-\centering
-\begin{tabular}{llr}
-\toprule
-\multicolumn{2}{c}{Name} \\
-\cmidrule(r){1-2}
-First name & Last Name & Grade \\
-\midrule
-John & Doe & $7.5$ \\
-Richard & Miles & $2$ \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\blindtext % Dummy text
-
-\begin{equation}
-\label{eq:emc}
-e = mc^2
-\end{equation}
-
-\blindtext % Dummy text
-
-%------------------------------------------------
-
-\section{Discussion}
-
-\subsection{Subsection One}
-
-\blindtext % Dummy text
-
-\subsection{Subsection Two}
-
-\blindtext % Dummy text
 
 %----------------------------------------------------------------------------------------
 %	REFERENCE LIST
