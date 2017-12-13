@@ -276,9 +276,18 @@ the significance features of the image, it clearly was not the case.
     \end{figure}
     
     
-    We trained the network for 200 epochs and got an accuracy of 89.02\%, then we added rotations from -5 to 5 degrees and got 89.81\%.
+    We trained the network for 200 epochs and got an accuracy of 89.02\%, then, to increase the examples in the training set, we added rotations from -5 to 5 degrees and got 89.81\%.
     
-    In orde
+    Seeking to improve our accuracy, we used a more complex and deeper CNN as base, the Very Deep Convolutional Networks \cite{DBLP:journals/corr/SimonyanZ14a} used in the  ImageNet Challenge. Since this is a deep CNN and made for 224x224 RGB images, we adapted to a smaller network with a receptive field of 28x28 and fewer units on the fully connected layer. \ref{fig:vgg} shows the architecture of the new CNN.
+    
+    \begin{figure}[h]
+    \begin{center}
+        \includegraphics[scale=0.65]{vggArch.jpg}
+        \caption{VGG based Architecture\label{fig:vgg}}
+    \end{center}
+    \end{figure}
+    
+    The accuracy obtained from training the new network for 300 epochs was 90.06\%, and for 938 epochs, 91.27\%.
 
 %----------------------------------------------------------------------------------------
 %	REFERENCE LIST
