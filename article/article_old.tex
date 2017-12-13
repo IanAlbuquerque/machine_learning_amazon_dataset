@@ -1,0 +1,274 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Machine Learning @ PUC-Rio 2017.2
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Ian Albuquerque Raymundo da Silva - 1310451
+% Clara de Mattos Szwarcman - 1310351
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Journal Article
+% LaTeX Template
+% Version 1.4 (15/5/16)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com) with extensive modifications by
+% Vel (vel@LaTeXTemplates.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[twoside,twocolumn]{article}
+
+\usepackage{blindtext} % Package to generate dummy text throughout this template 
+\usepackage[utf8]{inputenc}
+
+\usepackage[sc]{mathpazo} % Use the Palatino font
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\linespread{1.05} % Line spacing - Palatino needs more space between lines
+\usepackage{microtype} % Slightly tweak font spacing for aesthetics
+
+\usepackage[english]{babel} % Language hyphenation and typographical rules
+
+\usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry} % Document margins
+\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption} % Custom captions under/above floats in tables or figures
+\usepackage{booktabs} % Horizontal rules in tables
+
+\usepackage{lettrine} % The lettrine is the first enlarged letter at the beginning of the text
+
+\usepackage{enumitem} % Customized lists
+\setlist[itemize]{noitemsep} % Make itemize lists more compact
+
+\usepackage{abstract} % Allows abstract customization
+\renewcommand{\abstractnamefont}{\normalfont\bfseries} % Set the "Abstract" text to bold
+\renewcommand{\abstracttextfont}{\normalfont\small\itshape} % Set the abstract itself to small italic text
+
+\usepackage{titlesec} % Allows customization of titles
+\renewcommand\thesection{\Roman{section}} % Roman numerals for the sections
+\renewcommand\thesubsection{\roman{subsection}} % roman numerals for subsections
+\titleformat{\section}[block]{\large\scshape\centering}{\thesection.}{1em}{} % Change the look of the section titles
+\titleformat{\subsection}[block]{\large}{\thesubsection.}{1em}{} % Change the look of the section titles
+
+\usepackage{fancyhdr} % Headers and footers
+\pagestyle{fancy} % All pages have headers and footers
+\fancyhead{} % Blank out the default header
+\fancyfoot{} % Blank out the default footer
+\fancyhead[C]{Supervised Learning with Fashion MNIST $\bullet$ December 2017 $\bullet$ Machine Learning @ PUC-Rio} % Custom header text
+\fancyfoot[RO,LE]{\thepage} % Custom footer text
+
+\usepackage{titling} % Customizing the title section
+
+\usepackage{hyperref} % For hyperlinks in the PDF
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\setlength{\droptitle}{-4\baselineskip} % Move the title up
+
+\pretitle{\begin{center}\Huge\bfseries} % Article title formatting
+\posttitle{\end{center}} % Article title closing formatting
+\title{Supervised Learning with Fashion MNIST} % Article title
+\author{%
+\textsc{Clara de Mattos Szwarcman}\thanks{Clara's student ID: 1310351} \\[1ex] % Your name
+\normalsize Pontifícia Universidade Católica do Rio de Janeiro \\ % Your institution
+\normalsize \href{mailto:clara_szw@hotmail.com}{clara\_szw@hotmail.com} % Your email address
+\and % Uncomment if 2 authors are required, duplicate these 4 lines if more
+\textsc{Ian Albuquerque Raymundo da Silva}\thanks{Ian's student ID: 1310451} \\[1ex] % Second author's name
+\normalsize Pontifícia Universidade Católica do Rio de Janeiro \\ % Second author's institution
+\normalsize \href{mailto:ian.albuquerque.silva@gmail.com}{ian.albuquerque.silva@gmail.com} % Second author's email address
+}
+\date{\today} % Leave empty to omit a date
+\renewcommand{\maketitlehookd}{%
+\begin{abstract}
+\noindent \blindtext % Dummy abstract text - replace \blindtext with your abstract text
+\end{abstract}
+}
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+% Print the title
+\maketitle
+
+%----------------------------------------------------------------------------------------
+%	ARTICLE CONTENTS
+%----------------------------------------------------------------------------------------
+
+\section{Introduction}
+
+\lettrine[nindent=0em,lines=3]{T} he MNIST dataset is considered the "hello world" of Machine Learning.
+Current results achieve over 99.7\% accuracy using different techniques
+\cite{LWan:2013dg} \cite{DCirean:2012dg} \cite{ISato:2015dg} \cite{JRChang:2015dg} \cite{CYLee:2015dg}.
+Also, many good techniques do not work well on this dataset because of its simplicity \cite{CFran:2017dg}.
+With that in mind, the Fashion MNIST dataset \cite{FashionMNIST} was created. It has same size and format
+of the MNIST dataset (70.000 grayscale images of size 28x28 labeled into 10 different classes) meaning that
+it should be as simple to use, but its images consist of fashion items which are supposedly harder to
+classify.
+
+The goal of this work is to explore different techniques of supervised learning for classifying the images
+in the Fashion MNIST dataset. We want to measure the accuracy of our tests and compare them with different
+results on the same dataset, while also trying to obtain some intuition behind the data.
+
+%----------------------------------------------------------------------------------------
+
+\section{Preparation}
+
+The Fashion MNIST is already subdivided into two sets. A set of 60.000 images (the training set)
+and a set of 10.000 images (the test set). The idea is to learn with the training set and then
+evaluate the performance of our trained model with the test set.
+
+We will be using the standard accuracy as a metric for our tests:
+\begin{equation}
+\label{eq:acc}
+accuracy = \frac{\#(correct\_classifications)}{\#(test\_set\_size)}
+\end{equation}
+
+The dataset is already provided as a list of (28*28)+1 sized vectors corresponding
+to each of the 28*28 pixels of the image plus 1 entry for the classification.
+Since each pixel value was an integer from 0 to 255, we have opted to divide
+each value by 255 to achieve features that goes from 0 to 1.
+
+%----------------------------------------------------------------------------------------
+
+\section{Known Results}
+
+The Fashion MNIST repository contains some benchmarks using the python library
+scikit-learn \cite{scikitlearn} \cite{scikitlearnbenchmark}. They are not meant
+to be efficient or good, but they work as a baseline for our project.
+The best result (corresponding to the best selection of parameters tested)
+of each algorithm are displayed in table \ref{table:scikit-benchmark}.
+
+\begin{table}
+\centering
+\begin{tabular}{llr}
+\toprule
+Algorithm Name & Best Accuracy (\%) \\
+\midrule
+SVC & $89.7$ \\
+Gradient Boosting & $88.8$ \\
+Random Forest & $87.9$ \\
+MLP & $87.7$ \\
+K-Neighbors & $86.0$ \\
+Logistic Regression & $84.0$ \\
+SGD & $82.9$ \\
+Decision Tree & $80.1$ \\
+\bottomrule
+\end{tabular}
+\caption{Fashion MNIST Scikit-Learn Benchmark \cite{scikitlearnbenchmark} }
+\label{table:scikit-benchmark}
+\end{table}
+
+The current state of art for the Fashion MNIST dataset is a recent one, with 96.3\% accuracy using Wide
+Residual Networks using random erasing data augmentation \cite{randomerasingdataaugmentationpaper}.
+We will consider this as the ceiling accuracy for our project.
+
+%------------------------------------------------
+
+\section{Methods}
+
+Maecenas sed ultricies felis. Sed imperdiet dictum arcu a egestas. 
+\begin{itemize}
+\item Donec dolor arcu, rutrum id molestie in, viverra sed diam
+\item Curabitur feugiat
+\item turpis sed auctor facilisis
+\item arcu eros accumsan lorem, at posuere mi diam sit amet tortor
+\item Fusce fermentum, mi sit amet euismod rutrum
+\item sem lorem molestie diam, iaculis aliquet sapien tortor non nisi
+\item Pellentesque bibendum pretium aliquet
+\end{itemize}
+\blindtext % Dummy text
+
+Text requiring further explanation\footnote{Example footnote}.
+
+%------------------------------------------------
+
+\section{Results}
+
+\begin{table}
+\caption{Example table}
+\centering
+\begin{tabular}{llr}
+\toprule
+\multicolumn{2}{c}{Name} \\
+\cmidrule(r){1-2}
+First name & Last Name & Grade \\
+\midrule
+John & Doe & $7.5$ \\
+Richard & Miles & $2$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\blindtext % Dummy text
+
+\begin{equation}
+\label{eq:emc}
+e = mc^2
+\end{equation}
+
+\blindtext % Dummy text
+
+%------------------------------------------------
+
+\section{Discussion}
+
+\subsection{Subsection One}
+
+A statement requiring citation \cite{Figueredo:2009dg}.
+\blindtext % Dummy text
+
+\subsection{Subsection Two}
+
+\blindtext % Dummy text
+
+%----------------------------------------------------------------------------------------
+%	REFERENCE LIST
+%----------------------------------------------------------------------------------------
+
+\begin{thebibliography}{99} % Bibliography - this is intentionally simple in this template
+
+\bibitem{LWan:2013dg}
+L. Wan, M. Zeiler, S. Zhang, Y. LeCun, and R. Fergus, “Regularization of neural networks using dropconnect,” Icml, no. 1, pp. 109–111, 2013.
+
+\bibitem{DCirean:2012dg}
+D. Cirean, U. Meier, and J. Schmidhuber, “Multi-column Deep Neural Networks for Image Classification,” International Conference of Pattern Recognition, no. February, pp. 3642–3649, 2012. 
+
+\bibitem{ISato:2015dg}
+I. Sato, H. Nishimura, and K. Yokoi, “APAC: Augmented PAttern Classification with Neural Networks,” Arxiv, 2015.
+
+\bibitem{JRChang:2015dg}
+J.-R. Chang and Y.-S. Chen, “Batch-normalized Maxout Network in Network,” Arxiv, 2015.
+
+\bibitem{CYLee:2015dg}
+C.-Y. Lee, P. W. Gallagher, and Z. Tu, “Generalizing Pooling Functions in Convolutional Neural Networks: Mixed, Gated, and Tree,” in Proceedings of the 19th International Conference on Artificial Intelligence and Statistics, 2015, pp. 464–472.
+
+\bibitem{CFran:2017dg}
+Chollet, François. "Many good ideas will not work well on MNIST (e.g. batch norm). Inversely many bad ideas may work on MNIST and no transfer to real CV." 13 April 2017, 11:51 a.m. Tweet.
+
+\bibitem{FashionMNIST}
+Fashion-MNIST: a Novel Image Dataset for Benchmarking Machine Learning Algorithms. Han Xiao, Kashif Rasul, Roland Vollgraf
+
+\bibitem{scikitlearn}
+API design for machine learning software: experiences from the scikit-learn project, Buitinck et al., 2013
+
+\bibitem{scikitlearnbenchmark}
+Zalando Research. Fashion MNIST Scikit-Learn benchmark. http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/
+
+\bibitem{randomerasingdataaugmentationpaper}
+Zhong Z., Zheng L., Kang G., Li S., Yang Y. . Random Erasing Data Augmentation. ArXiv e-prints 1708.04896 2017
+
+\end{thebibliography}
+
+%----------------------------------------------------------------------------------------
+
+\end{document}

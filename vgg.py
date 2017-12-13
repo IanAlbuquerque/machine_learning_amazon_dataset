@@ -20,6 +20,8 @@ from __future__ import print_function
 import numpy as np
 import tensorflow as tf
 import utils.reader
+from numpy import random
+import math
 
 tf.logging.set_verbosity(tf.logging.INFO)
 
@@ -145,6 +147,28 @@ def cnn_model_fn(features, labels, mode):
       mode=mode, loss=loss, eval_metric_ops=eval_metric_ops)
 
 
+def randomErasing(img, probability = 0.5, sl = 0.02, sh = 0.4, r1 = 0.3, mean=0.4914):
+
+  if random.uniform(0, 1) > probability:
+    return img
+
+  for attempt in range(100):
+    area = 28 * 28
+
+    target_area = random.uniform(sl, sh) * area
+    aspect_ratio = random.uniform(r1, 1/r1)
+
+    h = int(round(math.sqrt(target_area * aspect_ratio)))
+    w = int(round(math.sqrt(target_area / aspect_ratio)))
+
+    if w <= 28 and h <= 28:
+      x1 = 0 if 28 - h <= 0 else random.randint(0, 28 - h)
+      y1 = 0 if 28 - w <= 0 else random.randint(0, 28 - w)
+      img[x1:x1+h, y1:y1+w] = mean
+      return img
+
+  return img
+
 def main(unused_argv):
   # Load training and eval data
   # mnist = tf.contrib.learn.datasets.load_dataset("mnist")
@@ -163,9 +187,13 @@ def main(unused_argv):
   eval_data = eval_data.astype(np.float32)
   eval_data = np.multiply(eval_data, 1.0 / 255.0)
 
+  for data in train_data:
+    data = data.reshape((28, 28))
+    data.setflags(write=1)
+    data = randomErasing(data).flatten()
+
   train_labels = np.asarray(train_labels, dtype=np.int32)
   eval_labels = np.asarray(eval_labels, dtype=np.int32)
-
 
   # Create the Estimator
   mnist_classifier = tf.estimator.Estimator(
@@ -186,7 +214,7 @@ def main(unused_argv):
       shuffle=True)
   mnist_classifier.train(
       input_fn=train_input_fn,
-      steps=100000,
+      steps=20000,
       hooks=[logging_hook])
 
   # Evaluate the model and print results
