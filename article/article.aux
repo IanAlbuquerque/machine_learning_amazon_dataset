@@ -23,35 +23,65 @@
 \citation{CYLee:2015dg}
 \citation{CFran:2017dg}
 \citation{FashionMNIST}
+\citation{scikitlearn}
+\citation{tensorflow}
 \select@language{english}
 \@writefile{toc}{\select@language{english}}
 \@writefile{lof}{\select@language{english}}
 \@writefile{lot}{\select@language{english}}
 \@writefile{toc}{\contentsline {section}{\numberline {I}Introduction}{1}{section.1}}
-\@writefile{toc}{\contentsline {section}{\numberline {II}Preparation}{1}{section.2}}
-\newlabel{eq:acc}{{1}{1}{Preparation}{equation.2.1}{}}
-\citation{scikitlearn}
+\@writefile{toc}{\contentsline {section}{\numberline {II}DataSet}{1}{section.2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Image Example\relax }}{1}{figure.caption.1}}
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:fashionex}{{1}{1}{Image Example\relax }{figure.caption.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {III}Preparation}{1}{section.3}}
 \citation{scikitlearnbenchmark}
 \citation{scikitlearnbenchmark}
 \citation{scikitlearnbenchmark}
 \citation{randomerasingdataaugmentationpaper}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Fashion MNIST Scikit-Learn Benchmark \cite  {scikitlearnbenchmark} \relax }}{2}{table.caption.2}}
+\newlabel{table:scikit-benchmark}{{1}{2}{Fashion MNIST Scikit-Learn Benchmark \cite {scikitlearnbenchmark} \relax }{table.caption.2}{}}
+\newlabel{eq:acc}{{1}{2}{Preparation}{equation.3.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {IV}Known Results}{2}{section.4}}
+\@writefile{toc}{\contentsline {section}{\numberline {V}Approaches}{2}{section.5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {i}Random Classifier}{2}{subsection.5.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {ii}K-Nearest-Neighbors (KNN)}{2}{subsection.5.2}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {ii.1}Own implementation}{2}{subsubsection.5.2.1}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {ii.2}Distance from Mean}{2}{subsubsection.5.2.2}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {ii.3}Scikit-Learn Implementation}{2}{subsubsection.5.2.3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {ii.4}Scikit-Learn w/ Haar Transform Pre-Processing}{2}{subsubsection.5.2.4}}
 \citation{randomerasingdataaugmentationpaper}
 \citation{yannLeCun:1998}
 \citation{yannLeCun:mnist}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Fashion MNIST Scikit-Learn Benchmark \cite  {scikitlearnbenchmark} \relax }}{2}{table.caption.1}}
-\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{table:scikit-benchmark}{{1}{2}{Fashion MNIST Scikit-Learn Benchmark \cite {scikitlearnbenchmark} \relax }{table.caption.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {III}Known Results}{2}{section.3}}
-\@writefile{toc}{\contentsline {section}{\numberline {IV}Methods}{2}{section.4}}
-\@writefile{toc}{\contentsline {section}{\numberline {V}Approaches}{2}{section.5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {i}Convolutional Neural Networks}{2}{subsection.5.1}}
-\@writefile{toc}{\contentsline {section}{\numberline {VI}Results}{2}{section.6}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces LeNet5 based Architecture\relax }}{3}{figure.caption.2}}
-\newlabel{fig:lenet5}{{1}{3}{LeNet5 based Architecture\relax }{figure.caption.2}{}}
-\newlabel{eq:emc}{{2}{3}{Results}{equation.6.2}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Example table\relax }}{3}{table.caption.3}}
-\@writefile{toc}{\contentsline {section}{\numberline {VII}Discussion}{3}{section.7}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {i}Subsection One}{3}{subsection.7.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {iii}Single Layer Perceptron}{3}{subsection.5.3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {iii.1}Standard Implementation}{3}{subsubsection.5.3.1}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {iii.2}MIRA (Margin-infused relaxed algorithm)}{3}{subsubsection.5.3.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {iv}SVM (Scikit-Learn Implementation)}{3}{subsection.5.4}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {iv.1}Polynomial Kernel}{3}{subsubsection.5.4.1}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {iv.2}Polynomial Kernel w/ Pre-Processing}{3}{subsubsection.5.4.2}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {iv.3}Gaussian Kernel}{3}{subsubsection.5.4.3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {iv.4}Gaussian Kernel w/ Rotations and Canny Filterl}{3}{subsubsection.5.4.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {v}Convolutional Neural Networks}{3}{subsection.5.5}}
+\citation{DBLP:journals/corr/SimonyanZ14a}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces LeNet5 based Architecture\relax }}{4}{figure.caption.3}}
+\newlabel{fig:lenet5}{{2}{4}{LeNet5 based Architecture\relax }{figure.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces VGG based Architecture\relax }}{4}{figure.caption.4}}
+\newlabel{fig:vgg}{{3}{4}{VGG based Architecture\relax }{figure.caption.4}{}}
 \bibdata{references}
+\bibcite{tensorflow}{1}
+\bibcite{scikitlearn}{2}
+\bibcite{JRChang:2015dg}{3}
+\bibcite{CFran:2017dg}{4}
+\bibcite{DCirean:2012dg}{5}
+\bibcite{yannLeCun:1998}{6}
+\bibcite{yannLeCun:mnist}{7}
+\bibcite{CYLee:2015dg}{8}
+\bibcite{scikitlearnbenchmark}{9}
+\bibcite{ISato:2015dg}{10}
+\bibcite{DBLP:journals/corr/SimonyanZ14a}{11}
+\bibcite{LWan:2013dg}{12}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Loss Rate for VGG based network\relax }}{5}{figure.caption.5}}
+\newlabel{fig:lossRateVGG}{{4}{5}{Loss Rate for VGG based network\relax }{figure.caption.5}{}}
+\bibcite{FashionMNIST}{13}
+\bibcite{randomerasingdataaugmentationpaper}{14}
 \bibstyle{plain}
-\@writefile{toc}{\contentsline {subsection}{\numberline {ii}Subsection Two}{4}{subsection.7.2}}

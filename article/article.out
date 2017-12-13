@@ -1,10 +1,20 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
-\BOOKMARK [1][-]{section.2}{Preparation}{}% 2
-\BOOKMARK [1][-]{section.3}{Known Results}{}% 3
-\BOOKMARK [1][-]{section.4}{Methods}{}% 4
+\BOOKMARK [1][-]{section.2}{DataSet}{}% 2
+\BOOKMARK [1][-]{section.3}{Preparation}{}% 3
+\BOOKMARK [1][-]{section.4}{Known Results}{}% 4
 \BOOKMARK [1][-]{section.5}{Approaches}{}% 5
-\BOOKMARK [2][-]{subsection.5.1}{Convolutional Neural Networks}{section.5}% 6
-\BOOKMARK [1][-]{section.6}{Results}{}% 7
-\BOOKMARK [1][-]{section.7}{Discussion}{}% 8
-\BOOKMARK [2][-]{subsection.7.1}{Subsection One}{section.7}% 9
-\BOOKMARK [2][-]{subsection.7.2}{Subsection Two}{section.7}% 10
+\BOOKMARK [2][-]{subsection.5.1}{Random Classifier}{section.5}% 6
+\BOOKMARK [2][-]{subsection.5.2}{K-Nearest-Neighbors \(KNN\)}{section.5}% 7
+\BOOKMARK [3][-]{subsubsection.5.2.1}{Own implementation}{subsection.5.2}% 8
+\BOOKMARK [3][-]{subsubsection.5.2.2}{Distance from Mean}{subsection.5.2}% 9
+\BOOKMARK [3][-]{subsubsection.5.2.3}{Scikit-Learn Implementation}{subsection.5.2}% 10
+\BOOKMARK [3][-]{subsubsection.5.2.4}{Scikit-Learn w/ Haar Transform Pre-Processing}{subsection.5.2}% 11
+\BOOKMARK [2][-]{subsection.5.3}{Single Layer Perceptron}{section.5}% 12
+\BOOKMARK [3][-]{subsubsection.5.3.1}{Standard Implementation}{subsection.5.3}% 13
+\BOOKMARK [3][-]{subsubsection.5.3.2}{MIRA \(Margin-infused relaxed algorithm\)}{subsection.5.3}% 14
+\BOOKMARK [2][-]{subsection.5.4}{SVM \(Scikit-Learn Implementation\)}{section.5}% 15
+\BOOKMARK [3][-]{subsubsection.5.4.1}{Polynomial Kernel}{subsection.5.4}% 16
+\BOOKMARK [3][-]{subsubsection.5.4.2}{Polynomial Kernel w/ Pre-Processing}{subsection.5.4}% 17
+\BOOKMARK [3][-]{subsubsection.5.4.3}{Gaussian Kernel}{subsection.5.4}% 18
+\BOOKMARK [3][-]{subsubsection.5.4.4}{Gaussian Kernel w/ Rotations and Canny Filterl}{subsection.5.4}% 19
+\BOOKMARK [2][-]{subsection.5.5}{Convolutional Neural Networks}{section.5}% 20
