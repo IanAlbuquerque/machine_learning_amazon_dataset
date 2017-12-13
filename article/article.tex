@@ -279,7 +279,9 @@ the significance features of the image, it clearly was not the case.
 
 \subsection{Convolutional Neural Networks}
 
-     The Convolutional Neural Networks (CNNs) are the current state-of-the-art for the Fashion-MNIST dataset with 96.3\% accuracy \cite{randomerasingdataaugmentationpaper}. For all tests with CNNs the values of the pixels were divided by 255, so that the values are always between 0 and 1. The first CNN that we used was based on the 1994s LeNet5 \cite{yannLeCun:1998}, one of the first CNNs, that has a 99.05\% accuracy for the MNIST dataset \cite{yannLeCun:mnist}. We used the same layers and kernel sizes but with more features on each convolutional layer. \ref{fig:lenet5} shows the architecture used for the first CNN test.
+     The Convolutional Neural Networks (CNNs) are the current state-of-the-art for the Fashion-MNIST dataset with 96.3\% accuracy \cite{randomerasingdataaugmentationpaper}. For all tests with CNNs the values of the pixels were divided by 255, so that the values are always between 0 and 1. To be able to train faster and with larger networks, we used the GPU NVIDIA GDX980N that uses CUDA.
+     
+      The first CNN that we used was based on the 1994s LeNet5 \cite{yannLeCun:1998}, one of the first CNNs, that has a 99.05\% accuracy for the MNIST dataset \cite{yannLeCun:mnist}. We used the same layers and kernel sizes but with more features on each convolutional layer. \ref{fig:lenet5} shows the architecture used for the first CNN test.
 
     \begin{figure}[h]
     \begin{center}
@@ -311,8 +313,16 @@ the significance features of the image, it clearly was not the case.
     \end{figure}
     
     Our next approach was to use Random Erasing as data augmentation, since it was used in the state-of-the-art implementation. Random Erasing randomly
-selects a rectangle region in an image and erases its pixels with random values, which reduces the risk of over-fitting. For 300 epochs the accuracy was . Seeing that adding only the Random Erasing technique decreased the accuracy, we combined it with the rotation from -5 to 5 degrees.
-    
+selects a rectangle region in an image and erases its pixels with random values, which reduces the risk of over-fitting. For 300 epochs the accuracy was .
+
+
+	\section{Conclusions}
+	
+	After running all the different algorithms we could realize the importance of a powerfull resource for processing, in our case the GPU; of a usefull pre-processing, otherwise we could decrease the amount of information in the data and worsen the result; the efficiency of the Convolutional Neural Networks for a task of this kind, because they got the higher results sometimes even in less time.
+	
+	Our results were above the ones in the benchmark, but still lower than the state-of-the-art. The state-of-the-art used a more complex network, with more pre-processing, this is what we believe was the cause for the difference between our accuracy and the state-of-the-art.
+	
+	Our next steps to improve the accuracy of the result are to add more data augmentation combined with the Random Erasing (i.e flipping, rotation and cropping) and implement and test different networks with tensorflow, such as the ResNet, which is similar to the CNN used in the state-of-the-art implementantion. We are also extending the currents implementations to more complex data sets like CIFAR-10 and CIFAR-100, that are datasets with 32x32 RGB images with respectively 10 and 100 different labeled classes.
     
 
 %----------------------------------------------------------------------------------------
