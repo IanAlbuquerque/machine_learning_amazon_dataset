@@ -40,7 +40,7 @@ def from_data_to_haar(data):
     new_data = np.zeros((32, 32))
     new_data[:28, :28] = data.reshape((28, 28))
 
-    for k in xrange(5):
+    for k in range(5):
         k = 5 - k
         new_data[:2**k, :2**k] = np.apply_along_axis(haar_transform, 0, new_data[:2**k, :2**k])
         new_data[:2**k, :2**k] = np.apply_along_axis(haar_transform, 1, new_data[:2**k, :2**k])

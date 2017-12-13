@@ -20,6 +20,7 @@ from __future__ import print_function
 import numpy as np
 import tensorflow as tf
 import utils.reader
+from scipy.ndimage import rotate
 
 tf.logging.set_verbosity(tf.logging.INFO)
 
@@ -146,9 +147,19 @@ def main(unused_argv):
   eval_data = eval_data.astype(np.float32)
   eval_data = np.multiply(eval_data, 1.0 / 255.0)
 
+  new_train_data = []
+  new_train_labels = []
+  for x, y in zip(train_data, train_labels):
+      img = x.reshape((28,28))
+      for da in range(-5, 5):
+          rot = rotate(img, da, reshape=False)
+          new_train_data.append(rot.flatten())
+          new_train_labels.append(y)
+  train_data = np.array(new_train_data)
+  train_labels = np.array(new_train_labels)
+  
   train_labels = np.asarray(train_labels, dtype=np.int32)
   eval_labels = np.asarray(eval_labels, dtype=np.int32)
-
 
   # Create the Estimator
   mnist_classifier = tf.estimator.Estimator(

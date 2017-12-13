@@ -56,7 +56,7 @@ from skimage.transform import rescale
 # 100 | 43.69 | 64.21
 # 1000 | 59.10 | 78.56
 # 5000 | ? | 83.91%
-# 60k | 87.23 |
+# 60k | 87.23 | 89.53%
 
 # -------------------------------
 
@@ -108,7 +108,7 @@ def train(x_data,y_data,classes):
 
     print(x_data.shape)
 
-    svc = SVC(C=10, kernel='poly', verbose=True)
+    svc = SVC(C=10**6, kernel='rbf', gamma=4*(10**(-7)), verbose=True)
 
     svc.fit(x_data,y_data)
 
